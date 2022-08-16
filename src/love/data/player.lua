@@ -25,6 +25,7 @@ player = { -- load the players data
 ]]
 
 function player.checkCollision(b_x, b_y, b_width, b_height) -- check the collision of a current object with another object, returns a boolean
+    --print((player.x + player.width > b_x) and (player.x < b_x + b_width) and (player.y + player.height > b_y) and (player.y < b_y + b_height))
     return (player.x + player.width > b_x) and (player.x < b_x + b_width) and (player.y + player.height > b_y) and (player.y < b_y + b_height)
 end
 
@@ -41,12 +42,16 @@ function player.update(dt)
         block = blocks[i]
         if input:down("left") then
             if not player.checkCollision(block.x, block.y, block.width, block.height) then
-                player.x = (player.x - (player.speed/#blocks) * dt) 
+                player.x = (player.x - (player.speed/#blocks) * dt)
+            else
+                player.x = (player.x + (player.speed/#blocks) * dt)
             end
         elseif input:down("right") then
             if not player.checkCollision(block.x, block.y, block.width, block.height) then
-                print(player.x)
-                player.x = (player.x + (player.speed/#blocks) * dt) / #blocks
+                --print(player.x)
+                player.x = (player.x + (player.speed/#blocks) * dt)
+            else
+                player.x = (player.x - (player.speed/#blocks) * dt)
             end
         end
     end
@@ -76,7 +81,8 @@ function player.update(dt)
                         {y = player.y + 100},
                         "in-quad",
                         function()
-                            landsound:play()
+                            if curLevel ~= 2 then landsound:play() 
+                            elseif curLevel == 2 and player.y >= 549 then landsound:play() end 
                             jumping = false
                         end
                     )
