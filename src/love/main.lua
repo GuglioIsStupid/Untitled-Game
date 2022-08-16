@@ -18,13 +18,7 @@ function love.load()
     })
     graphics = require("modules.graphics") -- Graphics module inspired by HTV04's graphics module
     jumping = false
-    player = { -- load the players data
-        x = 0,
-        y = lg.getHeight() - 50,
-        width = 50,
-        height = 50,
-        speed = 150
-    }
+    player = require "data.player" -- Load the player data
 
     function changeLevel() -- Change the current level
         finishsound:play()
@@ -63,17 +57,8 @@ end
 function love.update(dt)
     Timer.update(dt)
     input:update(dt)
+    player.update(dt)
     if curLevel ~= 0 then levelsUpdates[curLevel]:update(dt) else menu:update(dt) end -- menu = curLevel 0
-    if curLevel ~= 3 then -- level 3 does goofy ahh so do this for easier
-        if player.x < 0 then -- player x boundries
-            player.x = 0
-        elseif player.x > lg.getWidth()-player.width then
-            player.x = lg.getWidth()-player.width
-        end
-    end
-    if player.y > lg.getHeight() then -- only stop players from falling through the bottom with a broken jump
-        player.y = lg.getHeight()-player.width
-    end
 end
 function love.draw() -- draw all current assets on screen
     lg.push()

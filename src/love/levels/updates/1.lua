@@ -35,23 +35,6 @@ return { -- level specific functions
                 )
             end
         end
-        if input:down("right") then
-            for i = 1, #blocks do
-                if not checkCollision(player.x, player.y, player.width, player.height, blocks[i].x, blocks[i].y, blocks[i].width, blocks[i].height) then
-                    player.x = player.x + player.speed * dt
-                else
-                    player.x = player.x - 1
-                end
-            end
-        elseif input:down("left") then
-            for i = 1, #blocks do
-                if not checkCollision(player.x, player.y, player.width, player.height, blocks[i].x, blocks[i].y, blocks[i].width, blocks[i].height) then
-                    player.x = player.x - player.speed * dt
-                else
-                    player.x = player.x + 1
-                end
-            end
-        end
         if checkCollision(player.x, player.y, player.width, player.height, lg.getWidth()-50,lg.getHeight()-50,50,50) then -- finish block collision
             changeLevel()
         end 

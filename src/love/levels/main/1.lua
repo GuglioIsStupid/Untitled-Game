@@ -10,7 +10,7 @@ return {
     end,
     draw = function(self)
         lg.setColor(0.85, 0.85, 0.85) -- set player colour
-        lg.rectangle("fill", player.x, player.y, player.width, player.height)
+        player.draw()
         for i = 1, #blocks do
             blocks[i]:draw() -- draw all the blocks in the table
         end
