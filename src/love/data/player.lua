@@ -42,15 +42,45 @@ function player.update(dt)
         if input:down("left") then
             if not player.checkCollision(block.x, block.y, block.width, block.height) then
                 player.x = (player.x - (player.speed/#blocks) * dt) 
-            else
-                player.x = (player.x + (player.speed/#blocks) * dt) / #blocks
             end
         elseif input:down("right") then
             if not player.checkCollision(block.x, block.y, block.width, block.height) then
                 print(player.x)
                 player.x = (player.x + (player.speed/#blocks) * dt) / #blocks
-            else
-                player.x = (player.x - (player.speed/#blocks) * dt) / #blocks
+            end
+        end
+        if input:pressed("jump") then
+            if (curLevel ~= 2 and not jumping) or (curLevel == 2) then
+                jumping = true
+                if jumpsound[#jumpsound]:isPlaying() then
+                    jumpsound[#jumpsound] = jumpsound[#jumpsound]:clone()
+                    jumpsound[#jumpsound]:play()
+                else
+                    jumpsound[#jumpsound]:play()
+                end
+                for i = 2, #jumpsound do
+                    if not jumpsound[i]:isPlaying() then
+                        jumpsound[i] = nil -- Nil afterwords to prevent memory leak
+                    end --                             maybe, idk how love2d works lmfao
+                end
+                Timer.tween(
+                    0.7,
+                    player,
+                    {y = player.y - 100},
+                    "out-quad",
+                    function()
+                        Timer.tween(
+                            0.55,
+                            player,
+                            {y = player.y + 100},
+                            "in-quad",
+                            function()
+                                landsound:play()
+                                jumping = false
+                            end
+                        )
+                    end
+                )
             end
         end
     end
