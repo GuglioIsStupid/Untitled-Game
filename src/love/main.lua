@@ -17,7 +17,6 @@ function love.load()
         joystick = love.joystick.getJoysticks()[1]
     })
     graphics = require("modules.graphics") -- Graphics module inspired by HTV04's graphics module
-    jumping = false
     player = require "data.player" -- Load the player data
 
     function changeLevel() -- Change the current level
@@ -29,6 +28,16 @@ function love.load()
     -- load sounds
     jumpsound = {
         love.audio.newSource("sounds/jump.wav", "static")
+    }
+    sounds = {
+        explosion = love.audio.newSource("sounds/explosion.wav", "static"),
+        messup = love.audio.newSource("sounds/messup.wav", "static"),
+        optionChange = love.audio.newSource("sounds/optionChange.wav", "static"),
+        optionSelect = love.audio.newSource("sounds/optionSelect.wav", "static"),
+        fuck = love.audio.newSource("sounds/fuck.wav", "static"),
+    }
+    finishsound = {
+        love.audio.newSource("sounds/finish.wav", "static")
     }
     landsound = love.audio.newSource("sounds/land.wav", "static")
     finishsound = love.audio.newSource("sounds/finish.wav", "static")
