@@ -1,5 +1,5 @@
 function love.conf(t)
-    t.identity = "Untitled Game"
+    t.identity = "untitled-game"
     t.version = "11.4"
     t.console = true
     t.window.title = "Untitled Game"
