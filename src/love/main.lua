@@ -9,10 +9,10 @@ function love.load()
     Timer = require "libs.timer" -- Load required libraries
     input = (require "libs.baton").new({ -- Load the input for it to work properly
         controls = {
-            jump = {"key:space"},
-            left = {"key:left"},
-            right = {"key:right"},
-            confirm = {"key:return"}
+            jump = {"key:space", "button:a", "button:b"},
+            left = {"key:left", "button:dpleft", "axis:leftx-"},
+            right = {"key:right", "button:dpright", "axis:leftx+"},
+            confirm = {"key:return", "button:start"},
         },
         joystick = love.joystick.getJoysticks()[1]
     })
