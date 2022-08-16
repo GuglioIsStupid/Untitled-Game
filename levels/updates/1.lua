@@ -1,5 +1,6 @@
 return { -- level specific functions
     update = function(self, dt)
+        -- inputs are seperated due to special thingys in different levels lmaooooo
         if input:pressed("jump") then
             if not jumping then
                 jumping = true
@@ -51,7 +52,7 @@ return { -- level specific functions
                 end
             end
         end
-        if checkCollision(player.x, player.y, player.width, player.height, lg.getWidth()-50,lg.getHeight()-50,50,50) then
+        if checkCollision(player.x, player.y, player.width, player.height, lg.getWidth()-50,lg.getHeight()-50,50,50) then -- finish block collision
             changeLevel()
         end 
     end

@@ -1,14 +1,14 @@
 local menuText
 local tweenTitle, tweenVersion
-return {
+return { 
     enter = function(self)
-        __TITLE__ = "Untitled Game"
-        if love.filesystem.getInfo("version.txt") then
+        __TITLE__ = "Untitled Game" -- Title name
+        if love.filesystem.getInfo("version.txt") then -- load game version, else unknown version
             __VERSION__ = love.filesystem.read("version.txt")
         else
             __VERSION__ = "???"
         end
-        menuText = {
+        menuText = { -- set all the menu text
             title = {
                 text = __TITLE__,
                 x = lg.getWidth() / 2-50,
@@ -20,7 +20,7 @@ return {
                 y = 150
             }
         }
-        function tweenTitle()
+        function tweenTitle() 
             Timer.tween(
                 1.5, menuText.title, {y = 170}, "linear",
                 function()

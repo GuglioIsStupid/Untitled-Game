@@ -3,14 +3,14 @@ local isFading=false
 local fadeTimer
 
 local screenWidth, screenHeight
-blocks = {
+blocks = { -- load default blocks table
     destroy = function()
         for i = 1, #blocks-1 do -- Minus 1 cuz function
             blocks[i] = nil
         end
     end
 }
-finish = {
+finish = { -- load default finish table for more than 1 finish (may do later)
     destroy = function()
         for i = 1, #finish-1 do -- Minus 1 cuz function
             finish[i] = nil
@@ -21,14 +21,14 @@ return {
     screenBase = function(width, height)
         screenWidth, screenHeight = width, height
     end,
-    getWidth = function()
+    getWidth = function() 
         return screenWidth
     end,
-    getHeight = function()
+    getHeight = function() 
         return screenHeight
     end,
-    newBlock = function(mode, x, y, width, height, rx, ry, segments)
-        mode = mode or "normal"
+    newBlock = function(mode, x, y, width, height, rx, ry, segments) -- create a new object in the blocks table
+        mode = mode or "normal" -- default to normal
         blocks[#blocks + 1] = {
             x = x or 0,
             y = y or 0,
@@ -38,7 +38,7 @@ return {
             ry = ry or 0,
             segments = segments or 0,
 
-            checkCollision = function(a_x, a_y, a_width, a_height, b_x, b_y, b_width, b_height)
+            checkCollision = function(a_x, a_y, a_width, a_height, b_x, b_y, b_width, b_height) -- unused currently
                 return (a_x + a_width > b_x) and (a_x < b_x + b_width) and (a_y + a_height > b_y) and (a_y < b_y + b_height)
             end,
 
@@ -59,7 +59,7 @@ return {
         }
     end,
     newFinish = function(x, y, width, height, rx, ry, segments) -- for if someone was wanting to have more than 1 finish (idk why tho)
-        finish[#finish + 1] = {
+        finish[#finish + 1] = { --                                   its the same as the newBlock function tho
             x = x or 0,
             y = y or 0,
             width = width or 0,
@@ -88,6 +88,7 @@ return {
             end,
         }
     end,
+    -- Fade functions, currently unused
     setFade = function(value)
 		if fadeTimer then
 			Timer.cancel(fadeTimer)
@@ -141,6 +142,7 @@ return {
 	isFading = function()
 		return isFading
 	end,
+    -- Misc
     clear = function(r, g, b, a, s, d)
 		local fade = fade[1]
 
