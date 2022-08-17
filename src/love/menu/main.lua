@@ -52,7 +52,7 @@ return {
 
     update = function(self, dt)
         if input:pressed("confirm") then
-            changeLevel()
+            level.changeLevel()
         end
     end,
 

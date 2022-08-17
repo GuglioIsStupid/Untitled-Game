@@ -13,7 +13,7 @@ function player.checkCollision(b_x, b_y, b_width, b_height) -- check the collisi
 end
 
 function player.update(dt)
-    if curLevel ~= 3 then if player.x < 0 then -- player x boundries
+    if level.current() ~= 3 then if player.x < 0 then -- player x boundries
         player.x = 0
     elseif player.x > lg.getWidth()-player.width then
         player.x = lg.getWidth()-player.width
@@ -39,17 +39,17 @@ function player.update(dt)
         end
     end
     if input:pressed("jump") then
-        if (curLevel ~= 2 and not player.isJumping) or (curLevel == 2) then
+        if (level.current() ~= 2 and not player.isJumping) or (level.current() == 2) then
             player.isJumping = true
-            if jumpsound[#jumpsound]:isPlaying() then
-                jumpsound[#jumpsound] = jumpsound[#jumpsound]:clone()
-                jumpsound[#jumpsound]:play()
+            if sounds.jumpsound[#sounds.jumpsound]:isPlaying() then
+                sounds.jumpsound[#sounds.jumpsound] = sounds.jumpsound[#sounds.jumpsound]:clone()
+                sounds.jumpsound[#sounds.jumpsound]:play()
             else
-                jumpsound[#jumpsound]:play()
+                sounds.jumpsound[#sounds.jumpsound]:play()
             end
-            for i = 2, #jumpsound do
-                if not jumpsound[i]:isPlaying() then
-                    jumpsound[i] = nil -- Nil afterwords to prevent memory leak
+            for i = 2, #sounds.jumpsound do
+                if not sounds.jumpsound[i]:isPlaying() then
+                    sounds.jumpsound[i] = nil -- Nil afterwords to prevent memory leak
                 end --                             maybe, idk how love2d works lmfao
             end
             Timer.tween(
@@ -64,8 +64,8 @@ function player.update(dt)
                         {y = player.y + 100},
                         "in-quad",
                         function()
-                            if curLevel ~= 2 then landsound:play() 
-                            elseif curLevel == 2 and player.y >= 549 then landsound:play() end 
+                            if level.current() ~= 2 then sounds.landsound:play() 
+                            elseif level.current() == 2 and player.y >= 549 then sounds.landsound:play() end 
                             player.isJumping = false
                         end
                     )

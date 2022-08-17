@@ -1,9 +1,4 @@
-function getLevels(dir) -- Get the amount of levels available
-    curDirMain = dir .. "/main/"
-    curDirUpdates = dir .. "/updates/"
-    dirTableMain = love.filesystem.getDirectoryItems(curDirMain)
-    dirTableUpdates = love.filesystem.getDirectoryItems(curDirUpdates)
-end
+
 function love.load()
     lg = love.graphics -- shorten love.graphics (makes it easier for me)
     Timer = require "libs.timer" -- Load required libraries
@@ -18,38 +13,23 @@ function love.load()
     })
     graphics = require("modules.graphics") -- Graphics module inspired by HTV04's graphics module
     player = require "data.player" -- Load the player data
-
-    function changeLevel() -- Change the current level
-        finishsound:play()
-        curLevel = curLevel + 1
-        levels[curLevel]:enter()
-    end
+    level = require "modules.level" -- Load the levels module
+    level.load()
 
     -- load sounds
-    jumpsound = {
-        love.audio.newSource("sounds/jump.wav", "static")
-    }
     sounds = {
         explosion = love.audio.newSource("sounds/explosion.wav", "static"),
         messup = love.audio.newSource("sounds/messup.wav", "static"),
         optionChange = love.audio.newSource("sounds/optionChange.wav", "static"),
         optionSelect = love.audio.newSource("sounds/optionSelect.wav", "static"),
         fuck = love.audio.newSource("sounds/fuck.wav", "static"),
+        landsound = love.audio.newSource("sounds/land.wav", "static"),
+        finishsound = love.audio.newSource("sounds/finish.wav", "static"),
+        jumpsound = {
+            love.audio.newSource("sounds/jump.wav", "static")
+        },
     }
-    finishsound = {
-        love.audio.newSource("sounds/finish.wav", "static")
-    }
-    landsound = love.audio.newSource("sounds/land.wav", "static")
-    finishsound = love.audio.newSource("sounds/finish.wav", "static")
-    
-    getLevels("levels")
-    levels = {}
-    levelsUpdates = {}
-    curLevel = 0
-    for i = 1, #dirTableUpdates do -- require the available levels from function
-        levels[i] = require ("levels.main." .. i)
-        levelsUpdates[i] = require ("levels.updates." .. i)
-    end
+
     menu = require "menu.main" -- Load the... well, the menu
     menu:enter()
     lg.setBackgroundColor(0.4, 0.4, 0.4) -- set the background colour to a nice grey
@@ -67,16 +47,17 @@ function love.update(dt)
     Timer.update(dt)
     input:update(dt)
     player.update(dt)
-    if curLevel ~= 0 then levelsUpdates[curLevel]:update(dt) else menu:update(dt) end -- menu = curLevel 0
+    if level.current() ~= 0 then level:update(dt) else menu:update(dt) end-- menu = curLevel 0
 end
+
 function love.draw() -- draw all current assets on screen
     lg.push()
-    if curLevel ~= 0 then levels[curLevel]:draw() else menu:draw() end
+    if level.current() ~= 0 then level.draw() else menu:draw() end
     ----[[
     lg.print(
         "Player X: " .. math.floor(player.x) ..
         "\nPlayer Y: " .. math.floor(player.y) ..
-        "\nLevel Num: " .. curLevel
+        "\nLevel Num: " .. level.current()
     )
     --]]
     lg.pop()
