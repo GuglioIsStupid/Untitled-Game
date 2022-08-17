@@ -4,13 +4,7 @@ local player = {
     width = 50,
     height = 50,
     speed = 150,
-    jumpSpeed = -300,
-    xVelocity = 0,
-    yVelocity = 0,
-    gravity = -500,
     isJumping = false,
-    isFalling = false,
-    isGrounded = false
 }
 
 function player.checkCollision(b_x, b_y, b_width, b_height) -- check the collision of a current object with another object, returns a boolean
@@ -45,8 +39,8 @@ function player.update(dt)
         end
     end
     if input:pressed("jump") then
-        if (curLevel ~= 2 and not jumping) or (curLevel == 2) then
-            jumping = true
+        if (curLevel ~= 2 and not player.isJumping) or (curLevel == 2) then
+            player.isJumping = true
             if jumpsound[#jumpsound]:isPlaying() then
                 jumpsound[#jumpsound] = jumpsound[#jumpsound]:clone()
                 jumpsound[#jumpsound]:play()
@@ -72,18 +66,13 @@ function player.update(dt)
                         function()
                             if curLevel ~= 2 then landsound:play() 
                             elseif curLevel == 2 and player.y >= 549 then landsound:play() end 
-                            jumping = false
+                            player.isJumping = false
                         end
                     )
                 end
             )
         end
     end
-end
-
-function player.jump()
-    -- change the players y depending on yVelocity and fall back down
-    
 end
 
 function player.draw()
