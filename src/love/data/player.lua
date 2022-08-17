@@ -13,17 +13,6 @@ local player = {
     isGrounded = false
 }
 
-
---[[
-player = { -- load the players data
-        x = 0,
-        y = lg.getHeight() - 50,
-        width = 50,
-        height = 50,
-        speed = 150
-    }
-]]
-
 function player.checkCollision(b_x, b_y, b_width, b_height) -- check the collision of a current object with another object, returns a boolean
     --print((player.x + player.width > b_x) and (player.x < b_x + b_width) and (player.y + player.height > b_y) and (player.y < b_y + b_height))
     return (player.x + player.width > b_x) and (player.x < b_x + b_width) and (player.y + player.height > b_y) and (player.y < b_y + b_height)
@@ -100,7 +89,9 @@ end
 function player.draw()
     lg.push()
     lg.translate(player.x, player.y)
+    lg.setColor(0.85, 0.85, 0.85)
     lg.rectangle("fill", 0, 0, player.width, player.height)
+    lg.setColor(1,1,1)
     lg.pop()
 end
 

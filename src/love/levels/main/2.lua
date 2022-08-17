@@ -10,7 +10,6 @@ return {
         levelsUpdates[2]:update(dt)
     end,
     draw = function(self)
-        lg.setColor(0.85, 0.85, 0.85)
         player.draw()
         for i = 1, #blocks do
             blocks[i]:draw()

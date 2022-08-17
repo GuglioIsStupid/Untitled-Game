@@ -34,13 +34,13 @@ return {
                 2.33
             )
         else
-            love.graphics.setColor(0,0.4,0)
-            love.graphics.rectangle(
+            lg.setColor(0,0.4,0)
+            lg.rectangle(
                 "fill",
                 200,
                 lg.getHeight()-50, 50, 50
             )
-            love.graphics.setColor(1,1,1)
+            lg.setColor(1,1,1)
         end
     end
 }
