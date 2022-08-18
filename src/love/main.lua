@@ -30,7 +30,7 @@ function love.load()
         },
     }
 
-    menu = require "menu.main"
+    menu = require "menu.mainMenu"
     menu:enter()
     lg.setBackgroundColor(0.4, 0.4, 0.4) -- set the background colour to a nice grey
     music = love.audio.newSource("music/placeholderMusic.wav", "stream")
