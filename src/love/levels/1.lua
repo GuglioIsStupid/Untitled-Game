@@ -1,9 +1,7 @@
 return {
     enter = function(self)
-        for i = 1, 1 do
-            graphics.newBlock("normal", 200, lg.getHeight() - 125, 50, 125) -- create a new block 1 time
-            graphics.newFinish(lg.getWidth()-50, lg.getHeight()-50, 50, 50)
-        end
+        graphics.newBlock("normal", 200, lg.getHeight() - 125, 50, 125) -- create a new block 
+        graphics.newFinish(lg.getWidth()-50, lg.getHeight()-50, 50, 50)
     end,
     update = function(self, dt)
     end,

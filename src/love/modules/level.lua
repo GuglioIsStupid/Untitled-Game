@@ -2,6 +2,7 @@ local level = {}
 
 function level.changeLevel() -- Change the current level
     sounds.finishsound:play()
+    if player2 then player2 = nil end
     curLevel = curLevel + 1
     finish.destroy()
     blocks.destroy()
