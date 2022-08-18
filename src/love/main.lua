@@ -22,7 +22,6 @@ function love.load()
         messup = love.audio.newSource("sounds/messup.wav", "static"),
         optionChange = love.audio.newSource("sounds/optionChange.wav", "static"),
         optionSelect = love.audio.newSource("sounds/optionSelect.wav", "static"),
-        shit = love.audio.newSource("sounds/shit.wav", "static"),
         landsound = love.audio.newSource("sounds/land.wav", "static"),
         finishsound = love.audio.newSource("sounds/finish.wav", "static"),
         jumpsound = { -- table for overlapping sounds
