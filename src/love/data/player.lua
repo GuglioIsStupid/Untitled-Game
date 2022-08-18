@@ -24,9 +24,9 @@ function player.update(dt)
     for i = 1, #blocks do
         block = blocks[i]
         if input:down("left") then
-            if not player.checkCollision(block.x, block.y, block.width, block.height) then
-                player.x = (player.x - (player.speed/#blocks) * dt)
-            else
+            if not player.checkCollision(block.x, block.y, block.width, block.height) then -- player.speed is divided by 
+                player.x = (player.x - (player.speed/#blocks) * dt) --                        # of blocks to get the same 
+            else --                                                                           movement speed all the time
                 player.x = (player.x + (player.speed/#blocks) * dt)
             end
         elseif input:down("right") then
@@ -35,6 +35,18 @@ function player.update(dt)
                 player.x = (player.x + (player.speed/#blocks) * dt)
             else
                 player.x = (player.x - (player.speed/#blocks) * dt)
+            end
+        end
+    end
+    for i = 1, #finish do
+        finishNum = finish[i]
+        if player2 then 
+            if checkCollision(player2.x, player2.y, player2.width, player2.height, finishNum.x, finishNum.y, finishNum.width, finishNum.height) then
+                level.changeLevel()
+            end
+        else
+            if player.checkCollision(finishNum.x, finishNum.y, finishNum.width, finishNum.height) then
+                level.changeLevel()
             end
         end
     end
@@ -50,7 +62,7 @@ function player.update(dt)
             for i = 2, #sounds.jumpsound do
                 if not sounds.jumpsound[i]:isPlaying() then
                     sounds.jumpsound[i] = nil -- Nil afterwords to prevent memory leak
-                end --                             maybe, idk how love2d works lmfao
+                end --                           maybe, idk how love2d works lmfao
             end
             Timer.tween(
                 0.7,

@@ -1,7 +1,5 @@
 return {
     enter = function(self)
-        finish.destroy()
-        blocks.destroy()
         player.x = 0
         player2 = {
             x = lg.getWidth(),
@@ -14,11 +12,12 @@ return {
         graphics.newFinish(200, lg.getHeight()-50, 50, 50)
     end,
     update = function(self, dt)
-        levelsUpdates[3]:update(dt)
+        player2.x = lg.getWidth() + player.x
+        player2.y = player.y
     end,
     draw = function(self, dt)
         lg.setColor(0.85, 0.85, 0.85)
-        lg.rectangle("fill", player.x, player.y, player.width, player.height)
+        player.draw()
         lg.rectangle("fill", player2.x, player2.y, player2.width, player2.height)
         for i = 1, #blocks do
             blocks[i]:draw()
@@ -34,13 +33,9 @@ return {
                 2.33
             )
         else
-            lg.setColor(0,0.4,0)
-            lg.rectangle(
-                "fill",
-                200,
-                lg.getHeight()-50, 50, 50
-            )
-            lg.setColor(1,1,1)
+            for i = 1, #finish do
+                finish[i]:draw()
+            end
         end
     end
 }

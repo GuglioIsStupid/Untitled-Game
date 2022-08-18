@@ -22,15 +22,15 @@ function love.load()
         messup = love.audio.newSource("sounds/messup.wav", "static"),
         optionChange = love.audio.newSource("sounds/optionChange.wav", "static"),
         optionSelect = love.audio.newSource("sounds/optionSelect.wav", "static"),
-        fuck = love.audio.newSource("sounds/fuck.wav", "static"),
+        shit = love.audio.newSource("sounds/shit.wav", "static"),
         landsound = love.audio.newSource("sounds/land.wav", "static"),
         finishsound = love.audio.newSource("sounds/finish.wav", "static"),
-        jumpsound = {
+        jumpsound = { -- table for overlapping sounds
             love.audio.newSource("sounds/jump.wav", "static")
         },
     }
 
-    menu = require "menu.main" -- Load the... well, the menu
+    menu = require "menu.main"
     menu:enter()
     lg.setBackgroundColor(0.4, 0.4, 0.4) -- set the background colour to a nice grey
     music = love.audio.newSource("music/placeholderMusic.wav", "stream")

@@ -1,13 +1,10 @@
 return {
     enter = function(self)
-        finish.destroy()
-        blocks.destroy()
         graphics.newBlock("normal", 200, lg.getHeight() - 300, 50, 300)
         graphics.newBlock("transparent", 248, lg.getHeight() - 900, 2, 900)
         player.x = 0
     end,
     update = function(self, dt)
-        levelsUpdates[2]:update(dt)
     end,
     draw = function(self)
         player.draw()

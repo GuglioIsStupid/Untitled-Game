@@ -3,24 +3,21 @@ local level = {}
 function level.changeLevel() -- Change the current level
     sounds.finishsound:play()
     curLevel = curLevel + 1
+    finish.destroy()
+    blocks.destroy()
     levels[curLevel]:enter()
 end
 
 function level.getLevels(dir) -- Get the amount of levels available
-    curDirMain = dir .. "/main/"
-    curDirUpdates = dir .. "/updates/"
-    dirTableMain = love.filesystem.getDirectoryItems(curDirMain)
-    dirTableUpdates = love.filesystem.getDirectoryItems(curDirUpdates)
+    dirTableMain = love.filesystem.getDirectoryItems("levels")
 end
 
 function level.load()
     level.getLevels("levels")
     levels = {}
-    levelsUpdates = {}
     curLevel = 0
-    for i = 1, #dirTableUpdates do -- require the available levels from function
-        levels[i] = require ("levels.main." .. i)
-        levelsUpdates[i] = require ("levels.updates." .. i)
+    for i = 1, #dirTableMain do -- require the available levels from function
+        levels[i] = require ("levels." .. i)
     end
 end
 
