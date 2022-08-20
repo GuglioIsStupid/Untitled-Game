@@ -15,6 +15,10 @@ function love.load()
     player = require "data.player" -- Load the player data
     level = require "modules.level" -- Load the levels module
     level.load()
+    windowClosed = false
+    windowX, windowY = love.window.getPosition()
+	SpinAmount = 0
+    thisX, thisY = 0, 0
 
     -- load sounds
     sounds = {
@@ -44,20 +48,47 @@ function love.load()
 end
 function love.update(dt)
     Timer.update(dt)
-    input:update(dt)
-    player.update(dt)
-    if level.current() ~= 0 then level:update(dt) else menu:update(dt) end-- menu = curLevel 0
+    if not windowClosed then
+        input:update(dt)
+        player.update(dt)
+        if level.current() ~= 0 then level:update(dt) else menu:update(dt) end-- menu = curLevel 0
+    end
+    if love.keyboard.isDown("v") then
+        thisX, thisY = math.sin(SpinAmount * (SpinAmount / 2)) * 100, math.sin(SpinAmount * (SpinAmount)) * 100
+        xVal, yVal = windowX + thisX, windowY + thisY
+        love.window.setPosition(xVal, yVal)
+        SpinAmount = SpinAmount + 0.0012
+    end
+end
+function love.keypressed(key)
+    if key == "c" then
+        if not windowClosed then
+            windowClosed = true
+            sounds.explosion:play()
+            love.window.close()
+            Timer.after(
+                0.9,
+                function()
+                    love.window.setMode(800, 600)
+                    windowClosed = false
+                    sounds.jumpsound[1]:play()
+                end
+            )
+        end
+    end
 end
 
 function love.draw() -- draw all current assets on screen
-    lg.push()
-    if level.current() ~= 0 then level.draw() else menu:draw() end
-    ----[[
-    lg.print(
-        "Player X: " .. math.floor(player.x) ..
-        "\nPlayer Y: " .. math.floor(player.y) ..
-        "\nLevel Num: " .. level.current()
-    )
-    --]]
-    lg.pop()
+    if not windowClosed then
+        lg.push()
+        if level.current() ~= 0 then level.draw() else menu:draw() end
+        ----[[
+        lg.print(
+            "Player X: " .. math.floor(player.x) ..
+            "\nPlayer Y: " .. math.floor(player.y) ..
+            "\nLevel Num: " .. level.current()
+        )
+        --]]
+        lg.pop()
+    end
 end
