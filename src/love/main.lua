@@ -75,6 +75,8 @@ function love.keypressed(key)
                 end
             )
         end
+    elseif key == "=" then
+        level.changeLevel()
     end
 end
 

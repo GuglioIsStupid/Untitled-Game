@@ -41,12 +41,16 @@ function player.update(dt)
     for i = 1, #finish do
         finishNum = finish[i]
         if player2 then 
-            if checkCollision(player2.x, player2.y, player2.width, player2.height, finishNum.x, finishNum.y, finishNum.width, finishNum.height) then
-                level.changeLevel()
+            if level.current() <= 2 then 
+                if checkCollision(player2.x, player2.y, player2.width, player2.height, finishNum.x, finishNum.y, finishNum.width, finishNum.height) then
+                    level.changeLevel()
+                end
             end
         else
-            if player.checkCollision(finishNum.x, finishNum.y, finishNum.width, finishNum.height) then
-                level.changeLevel()
+            if level.current() ~= 3 or level.current() ~= 4 then 
+                if player.checkCollision(finishNum.x, finishNum.y, finishNum.width, finishNum.height) then
+                    level.changeLevel()
+                end 
             end
         end
     end

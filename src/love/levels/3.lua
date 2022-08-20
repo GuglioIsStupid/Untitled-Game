@@ -1,5 +1,7 @@
 return {
     enter = function(self)
+        graphics.newBlock("normal", 150, lg.getHeight() - 900, 50, 900)
+        graphics.newFinish(200, lg.getHeight()-50, 50, 50)
         player.x = 0
         player2 = {
             x = lg.getWidth(),
@@ -8,8 +10,6 @@ return {
             height = 50,
             speed = 150
         }
-        graphics.newBlock("normal", 150, lg.getHeight() - 900, 50, 900)
-        graphics.newFinish(200, lg.getHeight()-50, 50, 50)
     end,
     update = function(self, dt)
         player2.x = lg.getWidth() + player.x
