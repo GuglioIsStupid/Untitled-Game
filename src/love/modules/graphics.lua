@@ -4,18 +4,10 @@ local fadeTimer
 
 local screenWidth, screenHeight
 blocks = { -- load default blocks table
-    destroy = function()
-        for i = 1, #blocks do -- Minus 1 cuz function
-            blocks[i] = nil
-        end
-    end
+    destroy = function() for i = 1, #blocks do table.remove(blocks, i) end end
 }
 finish = { -- load default finish table for more than 1 finish (may do later)
-    destroy = function()
-        for i = 1, #finish do -- Minus 1 cuz function
-            finish[i] = nil
-        end
-    end
+    destroy = function() for i = 1, #finish do table.remove(finish, i) end end
 }
 return {
     screenBase = function(width, height)

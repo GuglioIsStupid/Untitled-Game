@@ -9,11 +9,7 @@ return {
     end,
     draw = function(self)
         player.draw()
-        for i = 1, #blocks do
-            blocks[i]:draw()
-        end
-        for i = 1, #finish do
-            finish[i]:draw()
-        end
+        for i = 1, #blocks do blocks[i]:draw() end
+        for i = 1, #finish do finish[i]:draw() end
     end,
 }

@@ -19,9 +19,7 @@ return {
         lg.setColor(0.85, 0.85, 0.85)
         player.draw()
         lg.rectangle("fill", player2.x, player2.y, player2.width, player2.height)
-        for i = 1, #blocks do
-            blocks[i]:draw()
-        end
+        for i = 1, #blocks do blocks[i]:draw() end
         lg.setColor(1,1,1)
         if player.x >= 190 then
             lg.print(
@@ -33,9 +31,7 @@ return {
                 2.33
             )
         else
-            for i = 1, #finish do
-                finish[i]:draw()
-            end
+            for i = 1, #finish do finish[i]:draw() end
         end
     end
 }

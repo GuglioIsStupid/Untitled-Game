@@ -9,12 +9,11 @@ function level.changeLevel() -- Change the current level
     levels[curLevel]:enter()
 end
 
-
 function level.load()
     levels = {}
     curLevel = 0
     for i = 1, #love.filesystem.getDirectoryItems("levels") do -- require the available levels from function
-        levels[i] = require ("levels." .. i)
+        table.insert(levels, require("levels." .. i))
     end
 end
 
