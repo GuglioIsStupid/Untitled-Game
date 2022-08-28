@@ -9,15 +9,11 @@ function level.changeLevel() -- Change the current level
     levels[curLevel]:enter()
 end
 
-function level.getLevels(dir) -- Get the amount of levels available
-    dirTableMain = love.filesystem.getDirectoryItems("levels")
-end
 
 function level.load()
-    level.getLevels("levels")
     levels = {}
     curLevel = 0
-    for i = 1, #dirTableMain do -- require the available levels from function
+    for i = 1, #love.filesystem.getDirectoryItems("levels") do -- require the available levels from function
         levels[i] = require ("levels." .. i)
     end
 end

@@ -57,7 +57,7 @@ function love.update(dt)
         thisX, thisY = math.sin(SpinAmount * (SpinAmount / 2)) * 100, math.sin(SpinAmount * (SpinAmount)) * 100
         xVal, yVal = windowX + thisX, windowY + thisY
         love.window.setPosition(xVal, yVal)
-        SpinAmount = SpinAmount + 0.0012
+        SpinAmount = SpinAmount + 1 * dt
     end
 end
 function love.keypressed(key)
@@ -70,6 +70,7 @@ function love.keypressed(key)
                 0.9,
                 function()
                     love.window.setMode(800, 600)
+                    love.window.setPosition(xVal, yVal)
                     windowClosed = false
                     sounds.jumpsound[1]:play()
                 end
