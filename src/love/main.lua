@@ -33,12 +33,9 @@ function love.load()
         },
     }
 
-    menu = require "menu.mainMenu"
-    menu:enter()
+    menu = require "menu.mainMenu"; menu:enter()
     lg.setBackgroundColor(0.4, 0.4, 0.4) -- set the background colour to a nice grey
-    music = love.audio.newSource("music/placeholderMusic.wav", "stream")
-    music:setLooping(true)
-    music:play()
+    music = love.audio.newSource("music/placeholderMusic.wav", "stream"); music:setLooping(true); music:play()
 
     ----[[
     function checkCollision(a_x, a_y, a_width, a_height, b_x, b_y, b_width, b_height) -- check the collision of a current object with another object, returns a boolean
