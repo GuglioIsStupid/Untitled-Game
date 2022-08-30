@@ -5,8 +5,7 @@ return {
         graphics.newFinish(lg.getWidth()-50, lg.getHeight()-50, 50, 50)
         player.x = 0
     end,
-    update = function(self, dt)
-    end,
+    update = function(self, dt) end,
     draw = function(self)
         player.draw()
         for i = 1, #blocks do blocks[i]:draw() end

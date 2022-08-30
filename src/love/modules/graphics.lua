@@ -10,15 +10,9 @@ finish = { -- load default finish table for more than 1 finish (may do later)
     destroy = function() for i = 1, #finish do table.remove(finish, i) end end
 }
 return {
-    screenBase = function(width, height)
-        screenWidth, screenHeight = width, height
-    end,
-    getWidth = function() 
-        return screenWidth
-    end,
-    getHeight = function() 
-        return screenHeight
-    end,
+    screenBase = function(width, height) screenWidth, screenHeight = width, height end,
+    getWidth = function() return screenWidth end,
+    getHeight = function() return screenHeight end,
     newBlock = function(mode, x, y, width, height, rx, ry, segments) -- create a new object in the blocks table
         mode = mode or "normal" -- default to normal
         table.insert(
@@ -96,9 +90,7 @@ return {
 
 		fade[1] = value
 	end,
-	getFade = function(value)
-		return fade[1]
-	end,
+	getFade = function(value) return fade[1] end,
 	fadeOut = function(duration, func)
 		if fadeTimer then
 			Timer.cancel(fadeTimer)
@@ -137,9 +129,7 @@ return {
 			end
 		)
 	end,
-	isFading = function()
-		return isFading
-	end,
+	isFading = function() return isFading end,
     -- Misc
     clear = function(r, g, b, a, s, d)
 		local fade = fade[1]

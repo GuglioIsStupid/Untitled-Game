@@ -28,9 +28,7 @@ function love.load()
         optionSelect = love.audio.newSource("sounds/optionSelect.wav", "static"),
         landsound = love.audio.newSource("sounds/land.wav", "static"),
         finishsound = love.audio.newSource("sounds/finish.wav", "static"),
-        jumpsound = { -- table for overlapping sounds
-            love.audio.newSource("sounds/jump.wav", "static")
-        },
+        jumpsound = {love.audio.newSource("sounds/jump.wav", "static")}, -- table for overlapping sounds
     }
 
     menu = require "menu.mainMenu"; menu:enter()
@@ -73,8 +71,7 @@ function love.keypressed(key)
                 end
             )
         end
-    elseif key == "=" then
-        level.changeLevel()
+    elseif key == "=" then level.changeLevel()
     end
 end
 
