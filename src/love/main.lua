@@ -81,7 +81,8 @@ function love.draw() -- draw all current assets on screen
         if level.current() ~= 0 then level.draw() else menu:draw() end
         ----[[
         lg.print(
-            "Player X: " .. math.floor(player.x) ..
+            "FPS: " .. love.timer.getFPS() ..
+            "\nPlayer X: " .. math.floor(player.x) ..
             "\nPlayer Y: " .. math.floor(player.y) ..
             "\nLevel Num: " .. level.current()
         )
