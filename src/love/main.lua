@@ -1,4 +1,3 @@
-
 function love.load()
     lg = love.graphics -- shorten love.graphics (makes it easier for me)
     Timer = require "libs.timer" -- Load required libraries
@@ -11,8 +10,16 @@ function love.load()
         },
         joystick = love.joystick.getJoysticks()[1]
     })
+    world = {}
+    world.world = love.physics.newWorld(0, 9.2*64, true)
+    world.ground = {}
+    world.ground.body = love.physics.newBody(world.world, 650/2, 650-50/2)
+    world.ground.shape = love.physics.newRectangleShape(1200, 50)
+    world.ground.fixture = love.physics.newFixture(world.ground.body,
+                                                    world.ground.shape)
     graphics = require("modules.graphics") -- Graphics module inspired by HTV04's graphics module
     player = require "data.player" -- Load the player data
+    player.load()
     level = require "modules.level" -- Load the levels module
     level.load()
     windowClosed = false
@@ -40,9 +47,11 @@ function love.load()
         return (a_x + a_width > b_x) and (a_x < b_x + b_width) and (a_y + a_height > b_y) and (a_y < b_y + b_height)
     end
     --]]
+    print(love.graphics.getWidth(), love.graphics.getHeight())
 end
 function love.update(dt)
     Timer.update(dt)
+    world.world:update(dt) -- this puts the world into motion
     if not windowClosed then
         input:update(dt)
         player.update(dt)
@@ -82,8 +91,8 @@ function love.draw() -- draw all current assets on screen
         ----[[
         lg.print(
             "FPS: " .. love.timer.getFPS() ..
-            "\nPlayer X: " .. math.floor(player.x) ..
-            "\nPlayer Y: " .. math.floor(player.y) ..
+            "\nPlayer X: " .. math.floor(player.getX()) ..
+            "\nPlayer Y: " .. math.floor(player.getY()) ..
             "\nLevel Num: " .. level.current()
         )
         --]]

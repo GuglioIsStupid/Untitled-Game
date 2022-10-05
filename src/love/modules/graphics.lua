@@ -17,6 +17,7 @@ return {
         mode = mode or "normal" -- default to normal
         table.insert(
             blocks,
+            -- make a block with love.physics
             {
                 x = x or 0,
                 y = y or 0,
@@ -26,24 +27,18 @@ return {
                 ry = ry or 0,
                 segments = segments or 0,
 
-                checkCollision = function(a_x, a_y, a_width, a_height, b_x, b_y, b_width, b_height) -- unused currently
-                    return (a_x + a_width > b_x) and (a_x < b_x + b_width) and (a_y + a_height > b_y) and (a_y < b_y + b_height)
+                init = function(self)
+                    self.body = love.physics.newBody(world.world, self.x, self.y, "static")
+                    self.shape = love.physics.newRectangleShape(self.width, self.height)
+                    self.fixture = love.physics.newFixture(self.body, self.shape)
+                    self.fixture:setUserData("block")
                 end,
 
                 draw = function(self)
                     if mode == "normal" then lg.setColor(0.65,0.65,0.65,1) elseif mode == "transparent" then lg.setColor(0,0,0,0) end
-                        lg.rectangle(
-                            "fill", 
-                            self.x, 
-                            self.y, 
-                            self.width, 
-                            self.height, 
-                            self.rx, 
-                            self.ry,
-                            self.segments
-                        )
-                    lg.setColor(1,1,1)
-                end,
+                    love.graphics.polygon("fill", self.body:getWorldPoints(self.shape:getPoints()))
+                    lg.setColor(1,1,1,1)
+                end
             }
         )
     end,

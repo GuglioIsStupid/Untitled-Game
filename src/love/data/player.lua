@@ -1,103 +1,48 @@
-local player = {
-    x = 0,
-    y = lg.getHeight() - 50,
-    width = 50,
-    height = 50,
-    speed = 150,
-    isJumping = false,
-}
-
-function player.checkCollision(b_x, b_y, b_width, b_height) -- check the collision of a current object with another object, returns a boolean
-    --print((player.x + player.width > b_x) and (player.x < b_x + b_width) and (player.y + player.height > b_y) and (player.y < b_y + b_height))
-    return (player.x + player.width > b_x) and (player.x < b_x + b_width) and (player.y + player.height > b_y) and (player.y < b_y + b_height)
+local player = {}
+local onGround
+-- make a player with love.physics
+function player.load()
+    player.body = love.physics.newBody(world.world, 0, 0, "dynamic")
+    player.shape = love.physics.newRectangleShape(50, 50)
+    player.fixture = love.physics.newFixture(player.body, player.shape)
+    player.fixture:setRestitution(0)
+    player.fixture:setFriction(0.4)
 end
 
+-- update the player
 function player.update(dt)
-    if level.current() ~= 3 then if player.x < 0 then -- player x boundries
-        player.x = 0
-    elseif player.x > lg.getWidth()-player.width then
-        player.x = lg.getWidth()-player.width
-    end end
-    if player.y > lg.getHeight() then -- only stop players from falling through the bottom with a broken jump
-        player.y = lg.getHeight()-player.width
+    -- dont let the player go off the screen
+    if player.body:getX() < 0 then player.body:setX(0) end
+    if player.body:getX() > lg.getWidth() - 50 then player.body:setX(lg.getWidth() - 50) end
+    if player.body:getY() < 0 then player.body:setY(0) end
+    if love.keyboard.isDown("right") then
+        player.body:applyForce(800, 0)
+    elseif love.keyboard.isDown("left") then
+        player.body:applyForce(-800, 0)
     end
-    for i = 1, #blocks do
-        block = blocks[i]
-        if input:down("left") then
-            if not player.checkCollision(block.x, block.y, block.width, block.height) then -- player.speed is divided by 
-                player.x = (player.x - (player.speed/#blocks) * dt) --                        # of blocks to get the same 
-            else --                                                                           movement speed all the time
-                player.x = (player.x + (player.speed/#blocks) * dt)
-            end
-        elseif input:down("right") then
-            if not player.checkCollision(block.x, block.y, block.width, block.height) then
-                --print(player.x)
-                player.x = (player.x + (player.speed/#blocks) * dt)
-            else
-                player.x = (player.x - (player.speed/#blocks) * dt)
-            end
-        end
-    end
-    for i = 1, #finish do
-        finishNum = finish[i]
-        if player2 then 
-            if level.current() <= 2 then 
-                if checkCollision(player2.x, player2.y, player2.width, player2.height, finishNum.x, finishNum.y, finishNum.width, finishNum.height) then
-                    level.changeLevel()
-                end
-            end
-        else
-            if level.current() ~= 3 or level.current() ~= 4 then 
-                if player.checkCollision(finishNum.x, finishNum.y, finishNum.width, finishNum.height) then
-                    level.changeLevel()
-                end 
-            end
-        end
-    end
+
+    -- jump
     if input:pressed("jump") then
-        if (level.current() ~= 2 and not player.isJumping) or (level.current() == 2) then
-            player.isJumping = true
-            if sounds.jumpsound[#sounds.jumpsound]:isPlaying() then
-                sounds.jumpsound[#sounds.jumpsound] = sounds.jumpsound[#sounds.jumpsound]:clone()
-                sounds.jumpsound[#sounds.jumpsound]:play()
-            else
-                sounds.jumpsound[#sounds.jumpsound]:play()
-            end
-            for i = 2, #sounds.jumpsound do
-                if not sounds.jumpsound[i]:isPlaying() then
-                    sounds.jumpsound[i] = nil -- Nil afterwords to prevent memory leak
-                end --                           maybe, idk how love2d works lmfao
-            end
-            Timer.tween(
-                0.7,
-                player,
-                {y = player.y - 100},
-                "out-quad",
-                function()
-                    Timer.tween(
-                        0.55,
-                        player,
-                        {y = player.y + 100},
-                        "in-quad",
-                        function()
-                            if level.current() ~= 2 then sounds.landsound:play() 
-                            elseif level.current() == 2 and player.y >= 549 then sounds.landsound:play() end 
-                            player.isJumping = false
-                        end
-                    )
-                end
-            )
+        player.body:applyLinearImpulse(0, -800)
+    end
+
+    for i = 1, #finish do
+        if checkCollision(player.body:getX(), player.body:getY(), 50, 50, finish[i].x, finish[i].y, 50, 50) then
+            level.changeLevel()
         end
     end
 end
 
+function player.getX()
+    return player.body:getX()
+end
+function player.getY()
+    return player.body:getY()
+end
+
+-- draw the player
 function player.draw()
-    lg.push()
-    lg.translate(player.x, player.y)
-    lg.setColor(0.85, 0.85, 0.85)
-    lg.rectangle("fill", 0, 0, player.width, player.height)
-    lg.setColor(1,1,1)
-    lg.pop()
+    love.graphics.polygon("fill", player.body:getWorldPoints(player.shape:getPoints()))
 end
 
 return player
