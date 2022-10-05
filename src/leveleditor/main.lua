@@ -18,7 +18,7 @@ function love.load()
     function removeBlock(x, y)
         for i = 1, #blocks do
             if checkCollision(x, y, 1, 1, blocks[i].x, blocks[i].y, blocks[i].width, blocks[i].height) then
-                table.remove(blocks[i], #blocks)
+                table.remove(blocks, i)
             end
         end
     end
