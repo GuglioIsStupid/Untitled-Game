@@ -35,6 +35,7 @@ The game is currently not playable, but you can still play around with the code 
 - [ ] Add more levels
 - [ ] Add more mechanics
 - [ ] Make better assets
+- [ ] Make more level obstacles
 
 # Contributing
 If you would like to help out with development of this game, make sure you have some experience with the LOVE2D engine and Lua. If you do, feel free to make a pull request and I will review it.
