@@ -12,11 +12,6 @@
         <li><a href="#contributing">Contributing</a></li>
         <li><a href="#license">License</a></li>
     </ol>
-    <style>
-        details {
-            cursor: pointer;
-        }
-    </style>
 </details>
 
 
