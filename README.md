@@ -26,4 +26,4 @@ To get started with the game, you will need to download the source code and open
 If you would like to help out with development of this game, make sure you have some experience with the LOVE2D engine and Lua. If you do, feel free to make a pull request and I will review it.
 
 # License
-Distributed under the GNU General Public License License. See [LICENSE](LICENSE) for more information.
+Distributed under the GNU General Public License. See [LICENSE](LICENSE) for more information.
