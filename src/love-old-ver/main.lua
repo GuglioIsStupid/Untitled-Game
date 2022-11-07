@@ -59,6 +59,7 @@ function love.keypressed(key)
     if key == "c" then
         if not windowClosed then
             windowClosed = true
+            xVal, yVal = love.window.getPosition()
             sounds.explosion:play()
             love.window.close()
             Timer.after(
