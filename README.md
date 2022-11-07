@@ -29,7 +29,7 @@ The game is currently not playable, but you can still play around with the code 
 
 # Todo
 - [ ] Remake the main menu
-- [ ] Make a level editor (Low Priority)
+- [x] Make a level editor
 - [ ] Finish love.physics implementation
 - [ ] Better level design
 - [ ] Add more levels
